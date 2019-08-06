@@ -16,8 +16,12 @@ blocks:
       prologue:
         commands:
           - git clone -b $SEMAPHORE_GIT_BRANCH git@github.com:DaniPB/ipuc_sm.git
+          - pwd
+          - ls -la
           - mv database.yml ipuc_sm/config/
           - cd ipuc_sm
+      secrets:
+        - name: ipuc-sm
   - name: Code Quality
     task:
       jobs:
@@ -28,6 +32,8 @@ blocks:
         commands:
           - git clone -b $SEMAPHORE_GIT_BRANCH git@github.com:DaniPB/ipuc_sm.git
           - cd ipuc_sm
+      secrets:
+        - name: ipuc-sm
 
 promotions:
   - name: Deploy to Heroku
