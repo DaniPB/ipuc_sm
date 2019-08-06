@@ -1,0 +1,38 @@
+version: v1.0
+name: IPUC SM
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: Tests
+    task:
+      jobs:
+        - name: Rspec
+          commands:
+            - docker-compose run web 'RAILS_ENV=test rake db:migrate && rspec'
+      prologue:
+        commands:
+          - git clone -b $SEMAPHORE_GIT_BRANCH git@github.com:DaniPB/ipuc_sm.git
+          - mv database.yml ipuc_sm/config/
+          - cd ipuc_sm
+  - name: Code Quality
+    task:
+      jobs:
+        - name: Brakeman + RBP + Ruby Critic
+          commands:
+            - docker-compose run web bin/shot
+      prologue:
+        commands:
+          - git clone -b $SEMAPHORE_GIT_BRANCH git@github.com:DaniPB/ipuc_sm.git
+          - cd ipuc_sm
+
+promotions:
+  - name: Deploy to Heroku
+    pipeline_file: heroku.yml
+    auto_promote_on:
+      - result: passed
+        branch:
+          - master
