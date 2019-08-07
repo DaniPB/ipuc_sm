@@ -12,12 +12,13 @@ blocks:
       jobs:
         - name: Rspec
           commands:
+            - pwd
+            - ls -la
+            - echo ****************************************
             - docker-compose run web 'RAILS_ENV=test rake db:migrate && rspec'
       prologue:
         commands:
           - git clone -b $SEMAPHORE_GIT_BRANCH git@github.com:DaniPB/ipuc_sm.git
-          - pwd
-          - ls -la
           - mv database.yml ipuc_sm/config/
           - cd ipuc_sm
       secrets:
