@@ -4,6 +4,7 @@ RUN mkdir /ipuc_sm
 WORKDIR /ipuc_sm
 COPY Gemfile /ipuc_sm/Gemfile
 COPY Gemfile.lock /ipuc_sm/Gemfile.lock
+RUN gem install bundler
 RUN bundle install
 COPY . /ipuc_sm
 
