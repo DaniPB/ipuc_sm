@@ -25,7 +25,7 @@ blocks:
       jobs:
         - name: Brakeman + RBP + Ruby Critic
           commands:
-            - docker-compose run web bin/shot
+            - sudo docker-compose run web bin/shot
       prologue:
         commands:
           - git clone -b $SEMAPHORE_GIT_BRANCH git@github.com:DaniPB/ipuc_sm.git

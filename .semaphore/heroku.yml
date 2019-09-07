@@ -12,7 +12,7 @@ blocks:
         - name: ipuc-sm
       env_vars:
         - name: HEROKU_REMOTE
-          value: https://git.heroku.com/ipuc_sm.git
+          value: https://git@heroku.com/ipucsm.git
       jobs:
       - name: Push code
         commands:
